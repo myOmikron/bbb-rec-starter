@@ -38,6 +38,6 @@ def start_recording(meeting_id, password, user):
         yes = browser.find_element_by_xpath("//button[@aria-label='Yes'][1]")
         yes.click()
     except:
-        browser.get_screenshot_as_file(f"{meeting_id}_{}.png")
+        browser.get_screenshot_as_file(f"{meeting_id}.png")
     finally:
         browser.quit()
