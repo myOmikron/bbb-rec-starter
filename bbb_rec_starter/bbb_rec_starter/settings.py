@@ -120,3 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# BBB Settings
+# Change this to your BBB server secrets. This can be done with bbb-conf --secret on the bbb server
+BBB_ENDPOINT = "https://bbb.example.com/bigbluebutton/"
+BBB_SECRET = "wozqaetpkqz8BpB9jXL2VHLbfgW92vO1g8Kpw7TLUc"
