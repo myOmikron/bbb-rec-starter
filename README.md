@@ -1,16 +1,9 @@
 # bbb-rec-starter
 This repository is meant to expose the startRecording functionality of bbb. It uses a headless browser to join the specific meeting and pushes the startRecording Button.
 
-## Requirements
-
-```
-apt install python3 python3-pip chromium
-python3 -m pip install -r requirements.txt
-```
-
 ## Setup Configuration
 
-In order to get the api to work you have to modify following files:
+Clone the project and modify the `settings.py` to match your needs.
 
 
 `bbb_rec_starter/bbb_rec_starter/settings.py`
@@ -31,6 +24,15 @@ ALLOWED_HOSTS = []
 BBB_ENDPOINT = "https://bbb.example.com/bigbluebutton/"
 BBB_SECRET = "change_this"
 ```
+
+## Installation
+
+In order to deploy this project start the installer as root / sudo privileged user:
+
+```
+./install.sh
+```
+When you are done with the configuration, start the service with `systemctl start bbb-rec-starter`
 
 ## How to use the API
 
