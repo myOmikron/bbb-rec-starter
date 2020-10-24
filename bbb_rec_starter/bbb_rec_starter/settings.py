@@ -25,7 +25,7 @@ SECRET_KEY = 'change_this'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-    # Add the hosts which are allowed to access the api
+# Add the hosts which are allowed to access the api
 ALLOWED_HOSTS = []
 
 
