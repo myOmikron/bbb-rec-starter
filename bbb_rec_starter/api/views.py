@@ -15,10 +15,15 @@ class StartRecordingView(View):
             if request.POST["secret"] == settings.BBB_SECRET:
                 if "meeting_id" in request.POST:
                     if "password" in request.POST:
-                        data["success"] = "true"
-                        data["result"] = f"Joining meeting {request.POST['meeting_id']} with " \
-                                         f"password {request.POST['password']} as user {user}."
-                        start_recording(request.POST["meeting_id"], request.POST["password"], user)
+                        ret = start_recording(request.POST["meeting_id"], request.POST["password"], user)
+                        if not ret:
+                            data["success"] = "false"
+                            data["result"] = f"An error occurred"
+                            return_code = 500
+                        else:
+                            data["success"] = "true"
+                            data["result"] = f"Joining meeting {request.POST['meeting_id']} with " \
+                                             f"password {request.POST['password']} as user {user}."
                     else:
                         data["success"] = "false"
                         data["result"] = "Missing parameter: password"

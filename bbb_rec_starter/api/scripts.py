@@ -19,6 +19,8 @@ def start_recording(meeting_id, password, user):
     chrome_options.add_argument("--window-size=1920,1080")
     browser = webdriver.Chrome(chrome_options=chrome_options)
 
+    success = True
+
     try:
         browser.get(meeting_url)
         try:
@@ -39,5 +41,7 @@ def start_recording(meeting_id, password, user):
         yes.click()
     except:
         browser.get_screenshot_as_file(f"{meeting_id}.png")
+        success = False
     finally:
         browser.quit()
+    return success
