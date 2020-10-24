@@ -1,16 +1,14 @@
 [Unit]
-Description=This service exposes the startRecording API call
+Description=BBB Recording Starter
 After=bbb-html5.service
 
 [Install]
 WantedBy=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/env python3 manage.py runserver 8000
+ExecStart=/usr/bin/env python3 manage.py runserver 0.0.0.0:8000
 User=bbb-rec-starter
 WorkingDirectory=/home/bbb-rec-starter/bbb_rec_starter
 Restart=always
-KillSignal=SIGQUIT
-Type=notify
+KillSignal=SIGKILL
 StandardError=syslog
-NotifyAccess=all
