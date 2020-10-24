@@ -43,3 +43,23 @@ To start the recording for the meeting "English 101" where the moderatorPW is "S
 `curl -X POST 'secret=your_big_blue_button_secret&meeting_id=English 101&password=StrongPassword' http://bbb.example.com:8000/startRecording`
 
 The call needs a few seconds to be executed so you may have to increase the timeout.
+
+### Response
+
+The API returns a json object with the following structure:
+
+```
+{
+    "success":  bool,
+    "result":   str
+}
+```
+
+### Return Codes
+
+Error Code | Reason
+:---:      | ---
+200        | Execution was successful
+400        | Missing parameter
+401        | Unauthorized
+500        | Exception occured while using chromedriver
