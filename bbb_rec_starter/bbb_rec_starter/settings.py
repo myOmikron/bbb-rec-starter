@@ -20,11 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'w@yy20ao4x2h@h%*v-605&_7wve#-hjgea+)=5f4rg(^8n3g_c'
+SECRET_KEY = 'change_this'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
+    # Add the hosts which are allowed to access the api
 ALLOWED_HOSTS = []
 
 
@@ -123,4 +124,4 @@ STATIC_URL = '/static/'
 # BBB Settings
 # Change this to your BBB server secrets. This can be done with bbb-conf --secret on the bbb server
 BBB_ENDPOINT = "https://bbb.example.com/bigbluebutton/"
-BBB_SECRET = "wozqaetpkqz8BpB9jXL2VHLbfgW92vO1g8Kpw7TLUc"
+BBB_SECRET = "change_this"
