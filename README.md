@@ -1,5 +1,7 @@
 # bbb-rec-starter
-This repository is meant to expose the startRecording functionality of bbb. It uses a headless browser to join the specific meeting and pushes the startRecording Button.
+This repository is meant to expose the startRecording functionality of bbb.
+
+It uses a headless browser to join the specific meeting and pushes the startRecording Button. This was a design decision in order to change as few code as possible to keep the maintainability high. This project does not touches any of the original files, so it is possible to install it on the same server bigbluebutton runs on.
 
 ## Setup Configuration
 
@@ -27,11 +29,22 @@ BBB_SECRET = "change_this"
 
 ## Installation
 
+There is currently no python3.6 or higher available in Ubuntu 16.04, so you need to install it via ppa:
+```
+add-apt-repository ppa:deadsnakes/ppa
+apt update && apt install python3.6 python3-pip
+python3.6 -m pip install -r requirements.txt
+sed -i 's/python3 /python3.6 /g' bbb-rec-starter.service
+```
+After that you can continue with the normal installation.
+
 In order to deploy this project start the installer as root / sudo privileged user:
 
 ```
 ./install.sh
 ```
+
+
 When you are done with the configuration, start the service with `systemctl start bbb-rec-starter`
 
 ## How to use the API
@@ -57,9 +70,9 @@ The API returns a json object with the following structure:
 
 ### Return Codes
 
-Error Code | Reason
-:---:      | ---
-200        | Execution was successful
-400        | Missing parameter
-401        | Unauthorized
-500        | Exception occured while using chromedriver
+Return Code | Reason
+:---:       | ---
+200         | Execution was successful
+400         | Missing parameter
+401         | Unauthorized
+500         | Exception occured while using chromedriver
