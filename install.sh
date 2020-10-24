@@ -1,7 +1,7 @@
 #!/bin/bash
 
 adduser bbb-rec-starter
-apt install python3 python3-pip chromium-browser
+apt install python3 python3-pip chromium-chromedriver
 python3 -m pip install -r requirements.txt
 
 cp bbb-rec-starter.service /usr/lib/systemd/system/
