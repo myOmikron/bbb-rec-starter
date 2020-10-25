@@ -1,7 +1,7 @@
 # bbb-rec-starter
 This repository is meant to expose the startRecording functionality of bbb.
 
-It uses a headless browser to join the specific meeting and pushes the startRecording Button. This was a design decision in order to change as few code as possible to keep the maintainability high. This project does not touches any of the original files, so it is possible to install it on the same server bigbluebutton runs on.
+It uses a headless browser to join the specific meeting and pushes the startRecording Button. This was a design decision in order to change as few code as possible to keep the maintainability high. This project does not touch any of the original files, so it is possible to install it on the same server bigbluebutton runs on.
 
 ## Setup Configuration
 
@@ -53,7 +53,7 @@ The server listens on port 8000 in the default configuration.
 
 To start the recording for the meeting "English 101" where the moderatorPW is "StrongPassword":
 
-`curl -X POST 'secret=your_big_blue_button_secret&meeting_id=English 101&password=StrongPassword' http://bbb.example.com:8000/startRecording`
+`curl -X POST -d 'secret=your_big_blue_button_secret&meeting_id=English 101&password=StrongPassword' http://bbb.example.com:8000/startRecording`
 
 The call needs a few seconds to be executed so you may have to increase the timeout.
 
