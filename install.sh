@@ -12,3 +12,5 @@ systemctl enable bbb-rec-starter
 cp -r bbb_rec_starter /home/bbb-rec-starter/
 chown -R bbb-rec-starter:bbb-rec-starter /home/bbb-rec-starter/bbb_rec_starter
 
+cp bbb-rec-starter.nginx /etc/bigbluebutton/nginx/
+systemctl reload nginx
