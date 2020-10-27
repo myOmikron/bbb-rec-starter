@@ -49,11 +49,9 @@ When you are done with the configuration, start the service with `systemctl star
 
 ## How to use the API
 
-The server listens on port 8000 in the default configuration.
-
 To start the recording for the meeting "English 101" where the moderatorPW is "StrongPassword":
 
-`curl -X POST -d 'secret=your_big_blue_button_secret&meeting_id=English 101&password=StrongPassword' http://bbb.example.com:8000/startRecording`
+`curl -X POST -d 'secret=your_big_blue_button_secret&meeting_id=English 101&password=StrongPassword' https://bbb.example.com/api/startRecording`
 
 The call needs a few seconds to be executed so you may have to increase the timeout.
 
