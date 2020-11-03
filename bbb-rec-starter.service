@@ -6,7 +6,7 @@ After=bbb-html5.service
 WantedBy=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/env python3 manage.py runserver 0.0.0.0:8000
+ExecStart=/usr/bin/env python3 manage.py runserver 127.0.0.1:8000
 User=bbb-rec-starter
 WorkingDirectory=/home/bbb-rec-starter/bbb_rec_starter
 Restart=always
