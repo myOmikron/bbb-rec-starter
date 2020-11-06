@@ -12,7 +12,7 @@ from bbb_rec_starter.settings import BBB_SECRET, BBB_ENDPOINT
 
 def start_recording(meeting_id, password, user):
     b = BigBlueButton(BBB_ENDPOINT, BBB_SECRET)
-    meeting_url = b.get_join_meeting_url(user, meeting_id, password)
+    meeting_url = b.get_join_meeting_url(user, meeting_id, password, {"joinViaHtml5": True})
 
     chrome_options = Options()
     chrome_options.headless = True
