@@ -74,3 +74,5 @@ Return Code | Reason
 400         | Missing parameter
 401         | Unauthorized
 500         | Exception occured while using chromedriver
+512         | Specified meeting hasn't started yet
+513         | Wrong password for meeting specified

@@ -12,6 +12,11 @@ from bbb_rec_starter.settings import BBB_SECRET, BBB_ENDPOINT
 
 def start_recording(meeting_id, password, user):
     b = BigBlueButton(BBB_ENDPOINT, BBB_SECRET)
+    meeting_running = b.is_meeting_running(meeting_id=meeting_id)["xml"]["running"]
+    if meeting_running == "false":
+        return_code = 512
+        status = "The specified meeting hasn't started yet"
+        return status, return_code
     meeting_url = b.get_join_meeting_url(user, meeting_id, password, {"joinViaHtml5": True})
 
     chrome_options = Options()
@@ -19,7 +24,8 @@ def start_recording(meeting_id, password, user):
     chrome_options.add_argument("--window-size=1920,1080")
     browser = webdriver.Chrome(chrome_options=chrome_options)
 
-    success = True
+    status = "ok"
+    return_code = 200
 
     try:
         browser.get(meeting_url)
@@ -40,8 +46,21 @@ def start_recording(meeting_id, password, user):
         yes = browser.find_element_by_xpath("//button[@aria-label='Yes'][1]")
         yes.click()
     except:
+        status = "Internal server error. Contact server administrator to get further information."
+        return_code = 500
+        try:
+            element_present = expected_conditions.presence_of_element_located((By.ID, "error-message"))
+            WebDriverWait(browser, 5).until(element_present)
+        except TimeoutException:
+            print("Timeout")
+            return status, return_code
+        info = browser.find_element_by_id("error-message")
+        if info.text == "You either did not supply a password or the password supplied is neither the attendee or moderator password for this conference.":
+            return_code = 513
+            status = "Wrong password for meeting specified"
+        else:
+            status = info.text
         browser.get_screenshot_as_file(f"{meeting_id}.png")
-        success = False
     finally:
         browser.quit()
-    return success
+    return status, return_code
