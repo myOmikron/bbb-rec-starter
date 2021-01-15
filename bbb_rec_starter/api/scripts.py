@@ -20,7 +20,7 @@ def start_recording(meeting_id, password, user):
     meeting_url = b.get_join_meeting_url(user, meeting_id, password, {"joinViaHtml5": True})
 
     chrome_options = Options()
-    chrome_options.headless = True
+    chrome_options.headless = False
     chrome_options.add_argument("--window-size=1920,1080")
     browser = webdriver.Chrome(chrome_options=chrome_options)
 
@@ -36,7 +36,17 @@ def start_recording(meeting_id, password, user):
             print("Timeout")
         close = browser.find_element_by_xpath("//button[@aria-label='Close Join audio modal'][1]")
         close.click()
+        try:
+            element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Not recording'][1]"))
+            WebDriverWait(browser, 2).until(element_present)
+        except:
+            element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Recording'][1]"))
+            WebDriverWait(browser, 2).until(element_present)
+            status = "The recording has already been started"
+            return_code = 514
+            return status, return_code
         record = browser.find_element_by_xpath("//div[@aria-label='Not recording'][1]")
+        print(record)
         record.click()
         try:
             element_present = expected_conditions.presence_of_element_located((By.XPATH, "//button[@aria-label='Yes'][1]"))

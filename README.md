@@ -76,3 +76,4 @@ Return Code | Reason
 500         | Exception occured while using chromedriver
 512         | Specified meeting hasn't started yet
 513         | Wrong password for meeting specified
+514         | The recording has already been started
