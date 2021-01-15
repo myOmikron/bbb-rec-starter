@@ -20,7 +20,7 @@ def start_recording(meeting_id, password, user):
     meeting_url = b.get_join_meeting_url(user, meeting_id, password, {"joinViaHtml5": True})
 
     chrome_options = Options()
-    chrome_options.headless = False
+    chrome_options.headless = True
     chrome_options.add_argument("--window-size=1920,1080")
     browser = webdriver.Chrome(chrome_options=chrome_options)
 
