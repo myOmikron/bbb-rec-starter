@@ -38,4 +38,4 @@ class StartRecordingView(View):
             data["success"] = "false"
             data["result"] = "Missing parameter: secret"
             return_code = 400
-        return JsonResponse(data, status=return_code, reason=status)
+        return JsonResponse(data, status=return_code, reason=data["result"])
