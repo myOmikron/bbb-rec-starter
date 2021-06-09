@@ -26,7 +26,8 @@ SECRET_KEY = 'change_this'
 DEBUG = False
 
 # Add the hosts which are allowed to access the api
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+]
 
 
 # Application definition
