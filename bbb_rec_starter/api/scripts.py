@@ -12,8 +12,7 @@ from bbb_rec_starter.settings import BBB_SECRET, BBB_ENDPOINT
 
 def start_recording(meeting_id, password, user):
     b = BigBlueButton(BBB_ENDPOINT, BBB_SECRET)
-    meeting_running = b.is_meeting_running(meeting_id=meeting_id)["xml"]["running"]
-    if meeting_running == "false":
+    if b.is_meeting_running(meeting_id=meeting_id).is_meeting_running():
         return_code = 512
         status = "The specified meeting hasn't started yet"
         return status, return_code
