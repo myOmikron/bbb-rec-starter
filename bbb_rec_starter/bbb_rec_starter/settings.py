@@ -27,6 +27,7 @@ DEBUG = False
 
 # Add the hosts which are allowed to access the api
 ALLOWED_HOSTS = [
+    "127.0.0.1",
 ]
 
 
