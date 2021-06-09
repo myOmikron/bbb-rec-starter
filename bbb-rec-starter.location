@@ -1,0 +1,5 @@
+# Put into /etc/bbb-loadbalancer/nginx on a bbb-loadbalancer server
+location /bigbluebutton/api/startRecording {
+    rewrite ^/bigbluebutton/api/(.*)$ /$1 break;
+    proxy_pass http://127.0.0.1:8000;
+}

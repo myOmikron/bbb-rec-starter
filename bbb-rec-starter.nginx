@@ -1,4 +1,5 @@
-location /bigbluebutton/api/startRecording {
-    rewrite ^/bigbluebutton/api/(.*)$ /$1 break;
+# Put into /etc/bigbluebutton/nginx on a bigbluebutton server
+location /api/startRecording {
+    rewrite ^/api/(.*)$ /$1 break;
     proxy_pass http://127.0.0.1:8000;
 }
