@@ -1,14 +1,24 @@
 [Unit]
-Description=BBB Recording Starter
-After=bbb-html5.service
+Description=BBB-Recording Starter service
+Requires=bbb-rec-starter.socket
+After=network.target
+
+[Service]
+
+Type=notify
+# the specific user that our service will run as
+User=bbb-rec-starter
+Group=bbb-rec-starter
+# another option for an even more restricted service is
+# DynamicUser=yes
+# see http://0pointer.net/blog/dynamic-users-with-systemd.html
+RuntimeDirectory=gunicorn
+WorkingDirectory=/home/bbb-rec-starter/bbb-rec-starter/bbb_rec_starter/
+ExecStart=/home/bbb-rec-starter/bbb-rec-starter/venv/bin/gunicorn -c /etc/bbb-rec-starter/gunicorn.conf.py bbb_rec_starter.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
-
-[Service]
-ExecStart=/home/bbb-rec-starter/bbb-rec-starter/venv/bin/python3 manage.py runserver 127.0.0.1:8000
-User=bbb-rec-starter
-WorkingDirectory=/home/bbb-rec-starter/bbb-rec-starter/bbb_rec_starter
-Restart=always
-KillSignal=SIGKILL
-StandardError=syslog
