@@ -26,6 +26,7 @@ capture_output = False
 workers = 1
 worker_class = "sync"
 threads = 1
+timeout = 120
 
 # [ LOGGING ]
 loglevel = "info"
