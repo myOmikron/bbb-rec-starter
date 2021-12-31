@@ -40,15 +40,22 @@ def start_recording(meeting_id, password, user):
         close = browser.find_element_by_xpath("//button[@aria-label='Close Join audio modal'][1]")
         close.click()
         try:
-            element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Not recording'][1]"))
+            element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Start recording'][1]"))
             WebDriverWait(browser, 2).until(element_present)
         except:
-            element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Recording'][1]"))
-            WebDriverWait(browser, 2).until(element_present)
-            status = "The recording has already been started"
-            return_code = 514
-            return status, return_code
-        record = browser.find_element_by_xpath("//div[@aria-label='Not recording'][1]")
+            try:
+                element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Pause recording'][1]"))
+                WebDriverWait(browser, 2).until(element_present)
+                status = "The recording has already been started"
+                return_code = 514
+                return status, return_code
+            except:
+                element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Resume recording'][1]"))
+                WebDriverWait(browser, 2).until(element_present)
+                status = "The recording has been paused manually"
+                return_code = 514
+                return status, return_code
+        record = browser.find_element_by_xpath("//div[@aria-label='Start recording'][1]")
         print(record)
         record.click()
         try:
