@@ -14,6 +14,8 @@ import time
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import django.db.models
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -31,7 +33,6 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
 ]
-
 
 # Application definition
 
@@ -118,6 +119,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Static files (CSS, JavaScript, Images)

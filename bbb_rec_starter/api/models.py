@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class Flag(models.Model):
+    created = models.DateTimeField(auto_now_add=True)

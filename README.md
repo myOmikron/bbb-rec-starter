@@ -71,6 +71,7 @@ The API returns a json object with the following structure:
 Return Code | Reason
 :---:       | ---
 200         | Execution was successful
+304         | Theres another process running right now
 400         | Missing parameter
 401         | Unauthorized
 500         | Exception occured while using chromedriver

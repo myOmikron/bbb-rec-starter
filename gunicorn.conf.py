@@ -1,4 +1,7 @@
 # [ SERVER HOOKS ]
+import multiprocessing
+
+
 def on_starting(server):
     pass
 
@@ -23,7 +26,7 @@ capture_output = False
 
 # [ WORKER ]
 # handle with care
-workers = 1
+workers = 2
 worker_class = "sync"
 threads = 1
 timeout = 120
