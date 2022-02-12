@@ -37,7 +37,7 @@ class ScheduleRecordingView(View):
             data = {"success": False, "result": "Missing parameter: meeting_id"}
             return JsonResponse(data, status=400, reason=data["result"])
 
-        meeting, created = MeetingModel.objects.get_or_create(meeting_id=decoded["meeting_id"])
-        if not created:
+        if MeetingModel.objects.filter(meeting_id=decoded["meeting_id"]).exists():
             return JsonResponse({"success": True, "message": "Meeting was already scheduled"}, status=304)
+        MeetingModel.objects.create(meeting_id=decoded["meeting_id"])
         return JsonResponse({"success": True, "message": "Scheduled meeting"})
