@@ -20,7 +20,7 @@ class Command(BaseCommand):
                 continue
             for meeting in meetings:
                 logger.info(f"Scheduling meeting with id: {meeting.meeting_id}")
-                status, response = scripts.start_recording(meeting.meeting_id)
+                response, status = scripts.start_recording(meeting.meeting_id)
 
                 # Delete meeting from scheduling if:
                 # - Recording was started successfully
