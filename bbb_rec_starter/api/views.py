@@ -22,7 +22,7 @@ class ScheduleRecordingView(View):
 
         if "checksum" not in decoded:
             return JsonResponse({"success": False, "message": "Parameter checksum is required but missing"}, status=401)
-        checksum = decoded
+        checksum = decoded["checksum"]
         del decoded["checksum"]
         if not validate_checksum(
                 request=decoded,
