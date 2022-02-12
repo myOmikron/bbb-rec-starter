@@ -13,6 +13,7 @@ logger = logging.getLogger("scheduler")
 class Command(BaseCommand):
     def handle(self, *args, **options):
         while True:
+            sleep(15)
             logger.info("Starting loop")
             meetings = MeetingModel.objects.all()
             if meetings.count() == 0:
@@ -30,5 +31,3 @@ class Command(BaseCommand):
                     meeting.delete()
 
                 logger.info(f"Status: {status} :: Response: {response}")
-
-            sleep(10)
