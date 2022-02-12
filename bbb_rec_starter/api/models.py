@@ -1,5 +1,5 @@
 from django.db import models
 
 
-class Flag(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
+class MeetingModel(models.Model):
+    meeting_id = models.CharField(default="", max_length=255)

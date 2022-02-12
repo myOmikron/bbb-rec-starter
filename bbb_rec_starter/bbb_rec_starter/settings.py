@@ -60,8 +60,7 @@ ROOT_URLCONF = 'bbb_rec_starter.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,6 +134,9 @@ logging.basicConfig(
     level=logging.INFO
 )
 logging.Formatter.converter = time.gmtime
+
+RCP_TIME_DELTA = 5
+RCP_SECRET = "change_this"
 
 # BBB Settings
 # Change this to your BBB server secrets. This can be done with bbb-conf --secret on the bbb server

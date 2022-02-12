@@ -10,17 +10,20 @@ from selenium.webdriver.support.wait import WebDriverWait
 from bbb_rec_starter.settings import BBB_SECRET, BBB_ENDPOINT
 
 
-def start_recording(meeting_id, password, user):
+def start_recording(meeting_id):
     b = BigBlueButton(BBB_ENDPOINT, BBB_SECRET)
     if not b.is_meeting_running(meeting_id=meeting_id).is_meeting_running():
         return_code = 512
         status = "The specified meeting hasn't started yet"
         return status, return_code
-    if not b.get_meeting_info(meeting_id=meeting_id).get_field("recording") == "true":
+    meeting_info = b.get_meeting_info(meeting_id=meeting_id)
+    if not meeting_info.get_field("recording") == "true":
         return_code = 515
         status = "The specified meeting has recording not enabled"
         return status, return_code
-    meeting_url = b.get_join_meeting_url(user, meeting_id, password, {"joinViaHtml5": True})
+    meeting_url = b.get_join_meeting_url(
+        "StartRecordingUser", meeting_id, meeting_info.get_field("attendeePW"), {"joinViaHtml5": True}
+    )
 
     chrome_options = Options()
     chrome_options.headless = True
@@ -37,7 +40,7 @@ def start_recording(meeting_id, password, user):
             WebDriverWait(browser, 5).until(element_present)
         except TimeoutException:
             print("Timeout")
-        close = browser.find_element_by_xpath("//button[@aria-label='Close Join audio modal'][1]")
+        close = browser.find_element(By.XPATH, "//button[@aria-label='Close Join audio modal'][1]")
         close.click()
         try:
             element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Start recording'][1]"))
@@ -55,7 +58,7 @@ def start_recording(meeting_id, password, user):
                 status = "The recording has been paused manually"
                 return_code = 514
                 return status, return_code
-        record = browser.find_element_by_xpath("//div[@aria-label='Start recording'][1]")
+        record = browser.find_element(By.XPATH, "//div[@aria-label='Start recording'][1]")
         print(record)
         record.click()
         try:
@@ -63,7 +66,7 @@ def start_recording(meeting_id, password, user):
             WebDriverWait(browser, 3).until(element_present)
         except TimeoutException:
             print("Timeout")
-        yes = browser.find_element_by_xpath("//button[@aria-label='Yes'][1]")
+        yes = browser.find_element(By.XPATH, "//button[@aria-label='Yes'][1]")
         yes.click()
     except:
         status = "Internal server error. Contact server administrator to get further information."
@@ -74,7 +77,7 @@ def start_recording(meeting_id, password, user):
         except TimeoutException:
             print("Timeout")
             return status, return_code
-        info = browser.find_element_by_id("error-message")
+        info = browser.find_element(By.XPATH, "error-message")
         if info.text == "You either did not supply a password or the password supplied is neither the attendee or moderator password for this conference.":
             return_code = 513
             status = "Wrong password for meeting specified"
