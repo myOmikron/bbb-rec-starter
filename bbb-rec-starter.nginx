@@ -1,5 +1,5 @@
 # Put into /etc/bigbluebutton/nginx on a bigbluebutton server
-location /api/startRecording {
+location /api/scheduleRecording {
     rewrite ^/api/(.*)$ /$1 break;
     proxy_pass http://unix:/run/bbb-rec-starter.sock;
 }
