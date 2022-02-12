@@ -22,7 +22,7 @@ def start_recording(meeting_id):
         status = "The specified meeting has recording not enabled"
         return status, return_code
     meeting_url = b.get_join_meeting_url(
-        "StartRecordingUser", meeting_id, meeting_info.get_field("attendeePW"), {"joinViaHtml5": True}
+        "StartRecordingUser", meeting_id, meeting_info.get_field("moderatorPW")
     )
 
     chrome_options = Options()
