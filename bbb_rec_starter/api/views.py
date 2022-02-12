@@ -1,3 +1,4 @@
+import json
 import logging
 
 from django.http import JsonResponse
@@ -14,12 +15,17 @@ logger = logging.getLogger("api")
 class ScheduleRecordingView(View):
 
     def post(self, request):
-        if "checksum" not in request.POST:
+        try:
+            decoded = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse({"success": False, "message": "JSON could not be decoded"})
+
+        if "checksum" not in decoded:
             return JsonResponse({"success": False, "message": "Parameter checksum is required but missing"}, status=401)
-        checksum = request.POST["checksum"]
-        del request.POST["checksum"]
+        checksum = decoded
+        del decoded["checksum"]
         if not validate_checksum(
-                request=request.POST,
+                request=decoded,
                 checksum=checksum,
                 shared_secret=settings.RCP_SECRET,
                 salt="scheduleRecording",
@@ -27,11 +33,11 @@ class ScheduleRecordingView(View):
         ):
             return JsonResponse({"success": False, "message": "You did not pass the checksum test"}, status=403)
 
-        if "meeting_id" not in request.POST:
+        if "meeting_id" not in decoded:
             data = {"success": False, "result": "Missing parameter: meeting_id"}
             return JsonResponse(data, status=400, reason=data["result"])
 
-        meeting, created = MeetingModel.objects.get_or_create(meeting_id=request["meeting_id"])
+        meeting, created = MeetingModel.objects.get_or_create(meeting_id=decoded["meeting_id"])
         if not created:
             return JsonResponse({"success": True, "message": "Meeting was already scheduled"}, status=304)
         return JsonResponse({"success": True, "message": "Scheduled meeting"})
