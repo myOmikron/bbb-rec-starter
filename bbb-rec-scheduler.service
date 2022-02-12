@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 
-Type=notify
+Type=simple
 # the specific user that our service will run as
 User=bbb-rec-starter
 Group=bbb-rec-starter
