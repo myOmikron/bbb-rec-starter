@@ -1,4 +1,5 @@
 from bigbluebutton_api_python import BigBlueButton
+from bigbluebutton_api_python.exception import BBBException
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -12,11 +13,12 @@ from bbb_rec_starter.settings import BBB_SECRET, BBB_ENDPOINT
 
 def start_recording(meeting_id):
     b = BigBlueButton(BBB_ENDPOINT, BBB_SECRET)
-    if not b.is_meeting_running(meeting_id=meeting_id).is_meeting_running():
+    try:
+        meeting_info = b.get_meeting_info(meeting_id=meeting_id)
+    except BBBException:
         return_code = 512
         status = "The specified meeting hasn't started yet"
         return status, return_code
-    meeting_info = b.get_meeting_info(meeting_id=meeting_id)
     if not meeting_info.get_field("recording") == "true":
         return_code = 515
         status = "The specified meeting has recording not enabled"
