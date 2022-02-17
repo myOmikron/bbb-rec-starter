@@ -36,4 +36,4 @@ class Command(BaseCommand):
                     logger.info(f"Removing meeting {meeting.meeting_id} as it can't be scheduled for 30min.")
                     meeting.delete()
 
-                logger.info(f"Status: {status} :: Response: {response}")
+                logger.info(f"Meeting:{meeting.meeting_id} :: Status: {status} :: Response: {response}")
