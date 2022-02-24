@@ -39,7 +39,7 @@ class Command(BaseCommand):
                     meeting.delete()
 
                 # Delete meeting if it is in db longer than 30 minutes
-                if meeting.created.timestamp() + 30*60 < datetime.utcnow().timestamp():
+                elif meeting.created.timestamp() + 30*60 < datetime.utcnow().timestamp():
                     logger.info(f"Removing meeting {meeting.meeting_id} as it can't be scheduled for 30min.")
                     meeting.delete()
 
