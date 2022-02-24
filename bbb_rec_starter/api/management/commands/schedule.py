@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 logger.info(f"Scheduling meeting with id: {meeting.meeting_id}")
                 f = Fred(meeting.meeting_id)
                 f.start()
-                f.join(timeout=60)
+                f.join(timeout=60.0)
                 if f.is_alive():
                     response, status = f"Timeout was reached for {meeting.meeting_id}", -1
                     f.kill()

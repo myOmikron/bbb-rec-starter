@@ -18,11 +18,7 @@ class Fred(Thread):
         super(Fred, self).__init__()
         self.meeting_id = meeting_id
         self.ret = ()
-
-        chrome_options = Options()
-        chrome_options.headless = True
-        chrome_options.add_argument("--window-size=1920,1080")
-        self.browser = webdriver.Chrome(chrome_options=chrome_options)
+        self.browser = None
 
     def kill(self):
         self.browser.quit()
@@ -32,6 +28,7 @@ class Fred(Thread):
 
     def start_recording(self):
         meeting_id = self.meeting_id
+
         b = BigBlueButton(BBB_ENDPOINT, BBB_SECRET)
         try:
             meeting_info = b.get_meeting_info(meeting_id=meeting_id)
@@ -51,6 +48,10 @@ class Fred(Thread):
         return_code = 200
 
         try:
+            chrome_options = Options()
+            chrome_options.headless = True
+            chrome_options.add_argument("--window-size=1920,1080")
+            self.browser = webdriver.Chrome(chrome_options=chrome_options)
             self.browser.get(meeting_url)
             try:
                 element_present = expected_conditions.presence_of_element_located((By.XPATH, "//button[@aria-label='Close Join audio modal'][1]"))
