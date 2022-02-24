@@ -21,7 +21,7 @@ class Fred(Thread):
         self.browser = None
 
     def kill(self):
-        self.browser.quit()
+        self.browser.quit() if self.browser else None
 
     def run(self):
         self.ret = self.start_recording()
@@ -29,25 +29,25 @@ class Fred(Thread):
     def start_recording(self):
         meeting_id = self.meeting_id
 
-        b = BigBlueButton(BBB_ENDPOINT, BBB_SECRET)
         try:
-            meeting_info = b.get_meeting_info(meeting_id=meeting_id)
-        except BBBException:
-            return_code = 512
-            status = "The specified meeting hasn't started yet"
-            return status, return_code
-        if not meeting_info.get_field("recording") == "true":
-            return_code = 515
-            status = "The specified meeting has recording not enabled"
-            return status, return_code
-        meeting_url = b.get_join_meeting_url(
-            "StartRecordingUser", meeting_id, meeting_info.get_field("moderatorPW")
-        )
+            b = BigBlueButton(BBB_ENDPOINT, BBB_SECRET)
+            try:
+                meeting_info = b.get_meeting_info(meeting_id=meeting_id)
+            except BBBException:
+                return_code = 512
+                status = "The specified meeting hasn't started yet"
+                return status, return_code
+            if not meeting_info.get_field("recording") == "true":
+                return_code = 515
+                status = "The specified meeting has recording not enabled"
+                return status, return_code
+            meeting_url = b.get_join_meeting_url(
+                "StartRecordingUser", meeting_id, meeting_info.get_field("moderatorPW")
+            )
 
-        status = "ok"
-        return_code = 200
+            status = "ok"
+            return_code = 200
 
-        try:
             chrome_options = Options()
             chrome_options.headless = True
             chrome_options.add_argument("--window-size=1920,1080")
@@ -103,5 +103,5 @@ class Fred(Thread):
                 status = info.text
             self.browser.get_screenshot_as_file(f"{meeting_id}.png")
         finally:
-            self.browser.quit()
+            self.kill()
         return status, return_code
