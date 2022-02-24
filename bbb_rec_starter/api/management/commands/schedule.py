@@ -6,7 +6,7 @@ from django.core.management import BaseCommand
 
 from api import scripts
 from api.models import MeetingModel
-
+from api.scripts import Fred
 
 logger = logging.getLogger("scheduler")
 
@@ -22,7 +22,14 @@ class Command(BaseCommand):
                 continue
             for meeting in meetings:
                 logger.info(f"Scheduling meeting with id: {meeting.meeting_id}")
-                response, status = scripts.start_recording(meeting.meeting_id)
+                f = Fred(meeting.meeting_id)
+                f.start()
+                f.join(timeout=60)
+                if f.is_alive():
+                    response, status = f"Timeout was reached for {meeting.meeting_id}", -1
+                    f.kill()
+                else:
+                    response, status = f.ret
 
                 # Delete meeting from scheduling if:
                 # - Recording was started successfully
