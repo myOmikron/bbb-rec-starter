@@ -55,24 +55,24 @@ class Fred(Thread):
             self.browser.get(meeting_url)
             try:
                 element_present = expected_conditions.presence_of_element_located((By.XPATH, "//button[@aria-label='Close Join audio modal'][1]"))
-                WebDriverWait(self.browser, 5).until(element_present)
+                WebDriverWait(self.browser, 10).until(element_present)
             except TimeoutException:
                 print("Timeout")
             close = self.browser.find_element(By.XPATH, "//button[@aria-label='Close Join audio modal'][1]")
             close.click()
             try:
                 element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Start recording'][1]"))
-                WebDriverWait(self.browser, 2).until(element_present)
+                WebDriverWait(self.browser, 10).until(element_present)
             except:
                 try:
                     element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Pause recording'][1]"))
-                    WebDriverWait(self.browser, 2).until(element_present)
+                    WebDriverWait(self.browser, 10).until(element_present)
                     status = "The recording has already been started"
                     return_code = 514
                     return status, return_code
                 except:
                     element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Resume recording'][1]"))
-                    WebDriverWait(self.browser, 2).until(element_present)
+                    WebDriverWait(self.browser, 10).until(element_present)
                     status = "The recording has been paused manually"
                     return_code = 514
                     return status, return_code
@@ -81,7 +81,7 @@ class Fred(Thread):
             record.click()
             try:
                 element_present = expected_conditions.presence_of_element_located((By.XPATH, "//button[@aria-label='Yes'][1]"))
-                WebDriverWait(self.browser, 3).until(element_present)
+                WebDriverWait(self.browser, 10).until(element_present)
             except TimeoutException:
                 print("Timeout")
             yes = self.browser.find_element(By.XPATH, "//button[@aria-label='Yes'][1]")
@@ -91,7 +91,7 @@ class Fred(Thread):
             return_code = 500
             try:
                 element_present = expected_conditions.presence_of_element_located((By.ID, "error-message"))
-                WebDriverWait(self.browser, 5).until(element_present)
+                WebDriverWait(self.browser, 10).until(element_present)
             except TimeoutException:
                 print("Timeout")
                 return status, return_code
