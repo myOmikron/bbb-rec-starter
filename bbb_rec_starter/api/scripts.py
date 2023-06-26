@@ -54,7 +54,7 @@ class Fred(Thread):
             self.browser = webdriver.Chrome(chrome_options=chrome_options)
             self.browser.get(meeting_url)
             try:
-                element_present = expected_conditions.presence_of_element_located((By.XPATH, "//button[@aria-label='Close Join audio modal'][1]"))
+                element_present = expected_conditions.presence_of_element_located((By.XPATH, "//button[@aria-label='Close How would you like to join the audio?'][1]"))
                 WebDriverWait(self.browser, 10).until(element_present)
             except TimeoutException:
                 print("Timeout")
