@@ -49,9 +49,9 @@ class Fred(Thread):
             return_code = 200
 
             chrome_options = Options()
-            chrome_options.headless = True
+            chrome_options.add_argument("--headless")
             chrome_options.add_argument("--window-size=1920,1080")
-            self.browser = webdriver.Chrome(chrome_options=chrome_options)
+            self.browser = webdriver.Chrome(options=chrome_options)
             self.browser.get(meeting_url)
             try:
                 element_present = expected_conditions.presence_of_element_located((By.XPATH, "//button[@aria-label='Close How would you like to join the audio?'][1]"))
