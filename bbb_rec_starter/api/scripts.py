@@ -17,7 +17,7 @@ class Fred(Thread):
     def __init__(self, meeting_id):
         super(Fred, self).__init__()
         self.meeting_id = meeting_id
-        self.ret = ()
+        self.ret = (500, "Internal server error. Contact server administrator to get further information.")
         self.browser = None
 
     def kill(self):
