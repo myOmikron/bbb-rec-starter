@@ -58,7 +58,7 @@ class Fred(Thread):
                 WebDriverWait(self.browser, 10).until(element_present)
             except TimeoutException:
                 print("Timeout")
-            close = self.browser.find_element(By.XPATH, "//button[@aria-label='Close Join audio modal'][1]")
+            close = self.browser.find_element(By.XPATH, "//button[@aria-label='Close How would you like to join the audio?'][1]")
             close.click()
             try:
                 element_present = expected_conditions.presence_of_element_located((By.XPATH, "//div[@aria-label='Start recording'][1]"))
